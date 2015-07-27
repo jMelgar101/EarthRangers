@@ -7,28 +7,34 @@ public class Timer : MonoBehaviour
 
     public Image timerBar;
     public float increaseFillAmount;
-    public FireTimer fireTimer;
-    //float timekuno = 60;
-    float tenSeconds = 10;
+    static int points;
+    //float timekuno = 7;
+    float oneMinute = 60;
     bool isClicked = false;
 
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
         timerBar.fillAmount -= increaseFillAmount * Time.deltaTime;
-        Debug.Log(timerBar.fillAmount);
-        tenSeconds -= Time.deltaTime;
-        //Debug.Log(tenSeconds);
+        oneMinute -= Time.deltaTime;
 
-        if (timerBar.fillAmount <= 0)
+        if (this.oneMinute <= 0)
         {
-            Application.LoadLevel("createjointeam");
+            if (points < 20)
+            {
+                Application.LoadLevel("createjointeam");
+            }
+            else
+            {
+                //Application.LoadLevel("createjointeam");
+                Debug.Log("congrats!");
+                Debug.Log(points);
+            }
         }
         else
         {
@@ -43,22 +49,25 @@ public class Timer : MonoBehaviour
 
     void checkTime()
     {
-        if (tenSeconds < 1)
+        if (timerBar.fillAmount <= 0)
         {
-            Debug.Log(tenSeconds);
             Debug.Log("FAIL!");
             this.timerBar.fillAmount -= 0.01f;
-            //FireTimer.
-
-            this.tenSeconds = 10;
+            //fire.transform.Translate(new Vector3(0, 0, 0) * Time.deltaTime * 0.721111f);
+            this.timerBar.fillAmount = 1;
         }
+        //else if (timerBar.fillAmount <= 0)
+        //{
+
+        //}
         else
         {
             if (this.isClicked == true)
             {
                 Debug.Log("TRUE!");
+                points++;
                 this.isClicked = false;
-                this.tenSeconds = 10;
+                this.timerBar.fillAmount = 1;
             }
         }
 
