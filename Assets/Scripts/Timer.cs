@@ -7,7 +7,10 @@ public class Timer : MonoBehaviour
 
     public Image timerBar;
     public float increaseFillAmount;
+    public FireTimer fireTimer;
     //float timekuno = 60;
+    float tenSeconds = 10;
+    bool isClicked = false;
 
     // Use this for initialization
     void Start()
@@ -19,16 +22,45 @@ public class Timer : MonoBehaviour
     void Update()
     {
         timerBar.fillAmount -= increaseFillAmount * Time.deltaTime;
-        //Debug.Log(timekuno -= Time.deltaTime);
+        Debug.Log(timerBar.fillAmount);
+        tenSeconds -= Time.deltaTime;
+        //Debug.Log(tenSeconds);
 
         if (timerBar.fillAmount <= 0)
         {
-            //Application.LoadLevel("next_scene");
-            //Debug.Log("do nothing");
+            Application.LoadLevel("createjointeam");
         }
         else
         {
-            //Debug.Log("do nothing"); 
+            this.checkTime();
         }
+    }
+
+    public void OnClick()
+    {
+        this.isClicked = true;
+    }
+
+    void checkTime()
+    {
+        if (tenSeconds < 1)
+        {
+            Debug.Log(tenSeconds);
+            Debug.Log("FAIL!");
+            this.timerBar.fillAmount -= 0.01f;
+            //FireTimer.
+
+            this.tenSeconds = 10;
+        }
+        else
+        {
+            if (this.isClicked == true)
+            {
+                Debug.Log("TRUE!");
+                this.isClicked = false;
+                this.tenSeconds = 10;
+            }
+        }
+
     }
 }
